@@ -1,0 +1,15 @@
+# Gestionar y controlar la ejecución de una aplicación 
+# Spring Boot en un entorno Linux.
+# Ubicación del archivo /etc/systemd/system/app.service
+
+[Unit]
+Description=Spring Boot App
+After=syslog.target
+
+[Service]
+User=ec2-user
+ExecStart=java -jar -Dspring.profiles.active=prod -Dserver.port=8080 /home/ec2-user/app-spring/app/app.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
