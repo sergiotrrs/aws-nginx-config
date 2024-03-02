@@ -4,11 +4,11 @@
 
 ### Automate this
 
-[ ] install packages
-[ ] update packages
-[ ] Config mariadb105-server
-[ ] enable && status mariadb105-server
-[ ] mysql secure installation
+[X] update
+[X] install packages
+[X] Config mariadb105-server
+[X] enable && status mariadb105-server
+[X] mysql secure installation
 [ ] /dir creations
 [ ] nginx directories
 [ ] app directory
