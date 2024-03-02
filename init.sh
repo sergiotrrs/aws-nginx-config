@@ -15,6 +15,10 @@ sudo sysemctl start mariadb &&
 	sudo sysemctl enable mariadb &&
 	sudo sysemctl status mariadb
 
-echo "Enabling mysql secure installation"
+echo "Enabling mysql secure installation..."
 
 sudo mysql_secure_installation
+
+echo "Creating necessary directories..."
+
+sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled ~./app

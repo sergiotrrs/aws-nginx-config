@@ -9,9 +9,9 @@
 [X] Config mariadb105-server
 [X] enable && status mariadb105-server
 [X] mysql secure installation
-[ ] /dir creations
-[ ] nginx directories
-[ ] app directory
+[X] /dir creations
+[X] nginx directories
+[X] app directory
 [ ] gradlew build
 [ ] Copy jar into app/app.jar
 [ ] setup mysql user and db
@@ -19,6 +19,7 @@
 [ ] setup systemctl
 [ ] app.service
 [ ] journalctl -u app.service -xe
+[ ] Fancy progress bar
 
 #Amazon Linux 2023
 #Actualizar paquetes
