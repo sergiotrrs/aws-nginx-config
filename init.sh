@@ -30,3 +30,4 @@ sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled ~/app/
 
 echo $TABS
 echo "You should now clone your Rest API repository and build the .jar file"
+echo "You can also clone it and run the jar-build.sh script"
