@@ -23,6 +23,7 @@
 
 #Amazon Linux 2023
 #Actualizar paquetes
+
 ssh -i spring-aws-smts-deploy.pem ec2-user@3.95.232.26
 sudo yum update
 sudo yum install java-17

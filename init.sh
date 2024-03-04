@@ -11,9 +11,9 @@ sudo dnf install $REQUIRED_PACKAGES
 
 echo "Enabling mariadb server"
 
-sudo sysemctl start mariadb &&
-	sudo sysemctl enable mariadb &&
-	sudo sysemctl status mariadb
+sudo systemctl start mariadb &&
+	sudo systemctl enable mariadb &&
+	sudo systemctl status mariadb
 
 echo "Enabling mysql secure installation..."
 
