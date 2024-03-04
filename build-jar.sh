@@ -21,7 +21,7 @@ echo "Building the .jar ..."
 
 sudo chmod 700 "$APP_DIR/gradlew"
 
-"$APP_DIR/gradlew" build
+"$APP_DIR/gradlew" build -x test
 
 echo "$TABS"
 echo "Now copying the .jar to ~/app/"
