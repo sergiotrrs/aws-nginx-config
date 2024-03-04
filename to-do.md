@@ -12,8 +12,9 @@
 [X] /dir creations
 [X] nginx directories
 [X] app directory
-[ ] gradlew build
-[ ] Copy jar into app/app.jar
+[X] finding out api directory
+[X] gradlew build
+[X] Copy jar into app/app.jar
 [ ] setup mysql user and db
 [ ] setup nginx env variables data
 [ ] setup systemctl
