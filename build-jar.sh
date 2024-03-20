@@ -10,6 +10,19 @@ echo "$TABS"
 # Attempt to automatically find the application directory
 APP_DIRS=($(find ~/ -type d -name "*-api" 2>/dev/null))
 
+determine_build_tool_dir() {
+	local dir=$1
+
+}
+
+build_jar() {
+	local tool_dir=($1)
+}
+
+cp_jar() {
+	local tool_dir=($1)
+}
+
 # Check if the APP_DIR variable is empty and prompt for manual input if necessary
 [ -z "${APP_DIRS[0]}" ] &&
 	echo "App directory not found." &&
