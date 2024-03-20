@@ -62,33 +62,22 @@ cp_jar() {
 		echo "Jar copied succesfully into ~/app/"
 }
 
-# Check if the APP_DIR variable is empty and prompt for manual input if necessary
 [ -z "${APP_DIRS[0]}" ] &&
-	echo "App directory not found." &&
-	echo "Please enter the path to your application's directory:" &&
-	read APP_DIR ||
-	APP_DIR="${APP_DIRS[0]}" # Default to the first found dir_
+	echo "App directory not found. Please enter the path to your application's directory:" &&
+	read APP_DIR &&
+	APP_DIRS=($APP_DIR)
 
-echo "$TABS"
-echo "Building the .jar ..."
+for dir in "${APP_DIRS}"; do
+  tool_dir=($(determine_build_tool_dir "$dir"))
+  [[ "${tool_dir}" == "none" ]] &&
+    {
+      echo "No supported build tool was found in $dir"; continue;
+    }
 
-sudo chmod +x "$APP_DIR/gradlew" &&
-	"$APP_DIR/gradlew" build -x test &&
-	echo "Build sucessful." ||
-	{
-		echo "Build failed. Exiting."
-		exit1
-	}
-
-echo "$TABS"
-echo "Now copying the .jar into ~/app/"
-
-# Find the first .jar file
-JAR_FILE=$(find "$APP_DIR/build/libs" -name "*.jar" ! -name "*-plain.jar" -print -quit)
-
-[ -f "$JAR_FILE"] &&
-	cp "$JAR_FILE" ~/app/app.jar ||
-	{
-		echo "No .jar file was found inside build/libs. \nExiting."
-		exit 1
-	}
+  build_jar "${tool_dir[*]}" &&
+    echo "Build succesfull for ${tool_dir[*]}" ||
+    {
+      echo "Build failed for ${tool_dir[*]}";
+      exit 1;
+    }
+  cp_jar "${tool_dir[*]}"
