@@ -5,7 +5,7 @@
 echo "Installing necessary packages..."
 TABS="------------------------------------"
 
-REQUIRED_PACKAGES="mariadb105-server java-17 nginx"
+REQUIRED_PACKAGES="mariadb105-server java-17 nginx maven"
 ## Pckgs
 sudo dnf update
 sudo dnf install $REQUIRED_PACKAGES
