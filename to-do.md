@@ -14,13 +14,13 @@
 [X] app directory
 [X] finding out api directory
 [X] gradlew build
-[ ] Fix switch between maven and gradlew
-[ ] Setup for maven build
-[ ] Fix auto jar build directory
-[ ] Fix ~/app/ creation
+[X] Fix switch between maven and gradlew
+[X] Setup for maven build
+[X] Fix auto jar build directory
+[X] Fix ~/app/ creation
 [X] Copy jar into app/app.jar
-[ ] Fix this prev
-[ ] Add nginx.conf code line `include /etc/nginx/sites-enabled/*;`
+[X] Fix this prev
+[X] Add nginx.conf code line `include /etc/nginx/sites-enabled/*;`
 [ ] Setup for app && app.services
 [ ] Copy files
 [ ] link
