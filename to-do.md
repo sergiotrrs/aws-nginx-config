@@ -21,13 +21,13 @@
 [X] Copy jar into app/app.jar
 [X] Fix this prev
 [X] Add nginx.conf code line `include /etc/nginx/sites-enabled/*;`
-[ ] Setup for app && app.services
-[ ] Copy files
-[ ] link
+[X] Setup for app && app.services
+[X] Copy files
+[X] link
 [ ]
 [ ] setup mysql user and db
-[ ] setup nginx env variables data
-[ ] setup systemctl
-[ ] app.service
-[ ] journalctl -u app.service -xe
+[X] setup nginx env variables data
+[X] setup systemctl
+[X] app.service
+[X] journalctl -u app.service -xe <-- This just logs
 [ ] Fancy progress bar
