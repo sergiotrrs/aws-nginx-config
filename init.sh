@@ -26,7 +26,7 @@ sudo mysql_secure_installation
 echo "$TABS"
 echo "Creating necessary directories..."
 
-sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled ~/app/
+sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled /home/ec2-user/app/
 
 echo "$TABS"
 echo "You should now clone your Rest API repository and build the .jar file"
