@@ -7,14 +7,13 @@ TABS="------------------------------------"
 
 REQUIRED_PACKAGES="mariadb105-server java-17 nginx maven"
 ## Pckgs
-sudo dnf update
-sudo dnf install $REQUIRED_PACKAGES
+sudo yum update
+sudo yum install $REQUIRED_PACKAGES
 
 echo "Enabling mariadb server"
 
 sudo systemctl start mariadb &&
-	sudo systemctl enable mariadb &&
-	sudo systemctl status mariadb
+	sudo systemctl enable mariadb
 
 echo "$TABS"
 echo "Enabling mysql secure installation..."

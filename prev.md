@@ -6,8 +6,8 @@ sudo yum update
 sudo yum install java-17
 sudo yum install git
 sudo yum install nginx
-sudo dnf update -y
-sudo dnf install mariadb105-server
+sudo  update -y
+sudo  install mariadb105-server
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 sudo systemctl status mariadb

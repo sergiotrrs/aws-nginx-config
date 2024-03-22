@@ -29,5 +29,5 @@
 [X] setup nginx env variables data
 [X] setup systemctl
 [X] app.service
-[X] journalctl -u app.service -xe <-- This just logs
+[X] journalctl -u app.service -xe <-- This just logs"
 [ ] Fancy progress bar

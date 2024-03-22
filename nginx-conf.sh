@@ -12,8 +12,8 @@ if [[ -f "/home/ec2-user/aws-nginx-config/app" ]]; then
 		sudo cp /home/ec2-user/aws-nginx-config/app.service /etc/systemd/system/ &&
 		sudo systemctl start nginx &&
 		sudo systemctl enable app.service &&
-		sudo systemctl start app &&
 		sudo systemctl enable app &&
+		sudo systemctl start app &&
 		sudo systemctl reload nginx
 else
 	echo "Required file /home/ec2-user/aws-nginx-config/app does not exist."
