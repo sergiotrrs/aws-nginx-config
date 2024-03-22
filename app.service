@@ -8,8 +8,13 @@ After=syslog.target
 
 [Service]
 User=ec2-user
-ExecStart=java -jar -Dspring.profiles.active=prod -Dserver.port=8080 /home/ec2-user/app-spring/app/app.jar
+ExecStart=java -jar -Dspring.profiles.active=prod -Dserver.port=8080 /home/ec2-user/app/app.jar
 SuccessExitStatus=143
+Environment="MYSQLHOST=host_here"
+Environment="MYSQLPORT=port_here"
+Environment="MYSQLDATABASE=db_here"
+Environment="MYSQLUSER=root/user_here"
+Environment="MYSQLPASSWORD=pass_here"
 
 [Install]
 WantedBy=multi-user.target
