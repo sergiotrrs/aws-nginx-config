@@ -55,9 +55,9 @@ Puedes verificar que la base de datos y los usuarios se hayan creado correctamen
 
 Puedes verificar los permisos de un usuario específico ejecutando la siguiente consulta SQL.
 
-    ```sql
-    SHOW GRANTS FOR 'username'@'%';
-    ```
+   ```sql
+   SHOW GRANTS FOR 'username'@'%';
+   ```
 
 ### Paso 6: Sal de MariaDB.
 Sal de la interfaz de línea de comandos de MariaDB.

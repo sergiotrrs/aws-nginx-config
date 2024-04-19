@@ -10,9 +10,17 @@ MariaDB es un sistema de gestión de bases de datos relacional (RDBMS) de códig
 
 Utilice su cliente SSH favorito para conectarse a su instancia de AWS Linux.
 
-    ```bash
-    ssh -i your_key.pem ec2-user@your_instance_public_ip
-    ```
+```bash
+ssh -i your_key.pem ec2-user@your_instance_public_ip
+```
+
+Es necesario que tu archivo de clave `.pem` tenga permisos de solo lectura; de lo contrario, podrías encontrarte con el error "Permissions 0644 for your_key.pem are too open". Para resolver este problema, establece permisos de solo lectura para el archivo `.pem`.
+
+```bash
+chmod 400 your_key.pem
+```
+El comando `chmod` en sistemas operativos tipo Unix se utiliza para cambiar los permisos de un archivo o directorio. En este comando, 400 especifica que el propietario del archivo (your_key.pem) debe tener permisos de solo lectura, mientras que todos los demás usuarios no tienen ningún permiso.
+
 ### Paso 2: Actualizar el sistema.
 
 Antes de instalar cualquier paquete nuevo, es una buena práctica actualizar los paquetes existentes en el sistema.
