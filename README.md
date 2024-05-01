@@ -16,9 +16,9 @@ En el archivo [DNF_guide.md](DNF_guide.md), encontrarás una guía que explica q
 
 En el archivo [MariaDB_installation_guide.md](MariaDB_installation_guide.md), encontrarás instrucciones paso a paso para instalar y configurar MariaDB en una instancia EC2 de AWS. MariaDB es un sistema de gestión de bases de datos relacional de código abierto.
 
-### 4. Configuración de una Aplicación Spring Boot.
+### 4. Configuración para la ejecución de una Aplicación Spring Boot en EC2.
 
-En el archivo [Configuracion_SpringBoot.md](Configuracion_SpringBoot.md), encontrarás instrucciones para configurar una aplicación Spring Boot en una instancia EC2 de AWS. Spring Boot es un framework de desarrollo de aplicaciones Java que simplifica el proceso de creación de aplicaciones basadas en Spring.
+En el archivo [SpringBoot_App_installation_guide.md](SpringBoot_App_installation_guide.md), encontrarás instrucciones para configurar una aplicación Spring Boot en una instancia EC2 de AWS. Spring Boot es un framework de desarrollo de aplicaciones Java que simplifica el proceso de creación de aplicaciones basadas en Spring.
 
 ### 5. Configuración de NGINX como Proxy Inverso.
 
