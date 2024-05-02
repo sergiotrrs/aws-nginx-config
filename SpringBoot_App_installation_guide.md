@@ -88,7 +88,8 @@ Si has clonado el proyecto anteriormente, puedes realizar el registro de un usua
 
    ```bash
     curl -d '{"email":"winnie@disney.com","password":"honeyhoney","firstName":"winnie", "lastName":"pooh"}' -H "Content-Type:application/json" localhost:8080/api/v1/users
-
+   ```
+   ```bash
     curl localhost:8080/api/v1/users
    ```
 
@@ -125,22 +126,25 @@ Ejecuta tu aplicación indicando las credenciales adecuadas de tu base de datos.
 -  ./gradlew bootRun -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=host_here -DMYSQLDATABASE=db_here -DMYSQLPORT=port_here -DMYSQLUSER=root/user_here -DMYSQLPASSWORD=pass_here
 
    ```bash
-   ./gradlew bootRun -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=localhost -DMYSQLDATABASE=my_ecommerce -DMYSQLPORT=3306 -DMYSQLUSER=mickey_mouse -DMYSQLPASSWORD=d1sn3y
-   
+   ./gradlew bootRun -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=localhost -DMYSQLDATABASE=my_ecommerce -DMYSQLPORT=3306 -DMYSQLUSER=mickey_mouse -DMYSQLPASSWORD=d1sn3y   
    ```
 Para detener la aplicación presionando las teclas `ctrl + c`. Deten la apliación hasta que hayas terminado con las pruebas que se describe en el siguiente paso.
 
 ### Paso 3: Realiza pruebas a los endpoints de tu aplicación.
 
-Si has clonado el proyecto anteriormente, puedes registrar un nuevo usuario utilizando el comando cURL. Dado que la terminal SSH está ocupada ejecutando la aplicación Spring Boot, necesitarás abrir otra conexión SSH como se indicó en el [Paso 1: Conectar a tu instancia de AWS Linux](#paso-1-conectar-a-tu-instancia-de-aws-linux). Una vez que hayas abierto otra conexión SSH, ejecuta los siguientes comandos:
+Si has clonado el proyecto anteriormente, puedes registrar un nuevo usuario utilizando el comando cURL. Dado que la terminal SSH está ocupada ejecutando la aplicación Spring Boot, necesitarás abrir otra conexión SSH como se indicó en el [Paso 1: Conectar a tu instancia de AWS Linux](#paso-1-conectar-a-tu-instancia-de-aws-linux). 
+
+- Dado que la conexión se realizará a una base de datos persistente, después de hacer una solicitud POST puedes detener tu aplicación y verificar que los datos agregados seguirán registrados.
+
+Una vez que hayas abierto otra conexión SSH, ejecuta los siguientes comandos:
 
    ```bash
     curl -d '{"email":"winnie@disney.com","password":"honeyhoney","firstName":"winnie", "lastName":"pooh"}' -H "Content-Type:application/json" localhost:8080/api/v1/users
-
-    curl localhost:8080/api/v1/users
    ```
 
-Dado que la conexión se realiza a una base de datos persistente, puedes detener tu aplicación y verificar que los datos agregados anteriormente seguirán registrados.
+   ```bash
+    curl localhost:8080/api/v1/users
+   ```
 
 Una vez finalizado las pruebas deten tu aplicación presionando las teclas `ctrl + c`.
 
@@ -162,7 +166,7 @@ Para generar el empaquetado (.jar) de tu aplicación, ejecuta el siguiente coman
 Para ejecutar el archivo empaquetado de tu aplicación, utiliza el siguiente comando desde la raíz de tu aplicación. Si estás utilizando variables de entorno, indícalo como se muestra a continuación:
  
    ```bash
-   java -jar -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=localhost -DMYSQLDATABASE=my_ecommerce -DMYSQLPORT=3306 -DMYSQLUSER=mickey_mouse -DMYSQLPASSWORD=d1sn3y /build/libs/my-ecommerce-demo-1.0.0.jar
+   java -jar -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=localhost -DMYSQLDATABASE=my_ecommerce -DMYSQLPORT=3306 -DMYSQLUSER=mickey_mouse -DMYSQLPASSWORD=d1sn3y build/libs/aws-ec2-demo-1.0.0.jar
    ```
 
 Si usas Maven cambia la ruta del empaquetado a `/target/my-ecommerce-demo-1.0.0.jar`. Puedes probar el funcionamiento de tu aplicación haciendo una consulta HTTP desde otra ventana de comandos conectada a tu instancia EC2.
@@ -182,7 +186,7 @@ Los siguientes pasos te permiten configurar y habilitar un servicio en un sistem
 Primero, necesitas crear un archivo de servicio en el directorio /etc/systemd/system/ con la extensión .service.
 
    ```bash
-   sudo touch /etc/systemd/system/app_my_ecommerce.service
+   sudo touch /etc/systemd/system/springboot-app.service
    ```
 
 ### Paso 2: Edita el archivo de servicios.
@@ -190,9 +194,9 @@ Primero, necesitas crear un archivo de servicio en el directorio /etc/systemd/sy
 Utiliza un editor de texto para editar este archivo y definir cómo systemd debería manejar tu servicio. Por ejemplo, podrías especificar el comando que systemd debería ejecutar para iniciar tu servicio y otras opciones de configuración relevantes.
 
    ```bash
-   sudo nano /etc/systemd/system/my_ecommerce_app.service
+   sudo nano /etc/systemd/system/springboot-app.service
    ```
-Escribe a continuación la siguiente configuración en el archivo `my_ecommerce_app.service`. 
+Escribe a continuación la siguiente configuración en el archivo `springboot-app.service`. 
 
    ```script
    # Gestionar y controlar la ejecución de una aplicación 
@@ -202,7 +206,7 @@ Escribe a continuación la siguiente configuración en el archivo `my_ecommerce_
    # y las variables de entorno.
    #
    # Cambia /home/ec2-user/app/app.jar por la ruta de tu archivo .jar
-   # Ubicación del archivo /etc/systemd/system/my_ecommerce_app.service
+   # Ubicación del archivo /etc/systemd/system/springboot-app.service
    #
    #
 
@@ -212,7 +216,7 @@ Escribe a continuación la siguiente configuración en el archivo `my_ecommerce_
 
    [Service]
    User=ec2-user
-   ExecStart=java -jar -Dspring.profiles.active=prod -Dserver.port=8080 /home/aws-ec2-demo/build/libs/aws-ec2-demo-1.0.0.jar
+   ExecStart=java -jar -Dspring.profiles.active=prod -Dserver.port=8080 /home/ec2-user/aws-ec2-demo/build/libs/aws-ec2-demo-1.0.0.jar
    Environment="MYSQLHOST=localhost"
    Environment="MYSQLPORT=3306"
    Environment="MYSQLDATABASE=my_ecommerce"
@@ -224,43 +228,54 @@ Escribe a continuación la siguiente configuración en el archivo `my_ecommerce_
    WantedBy=multi-user.target
    ```
 
-Una vez terminado guarda los cambios(Ctrl + s) y sal del editor(Ctrl + x).
+Una vez terminado guarda los cambios(`ctrl + s`) y sal del editor(`ctrl + x`).
 
 ### Paso 3: Habilitar e iniciar el servicio.
 
 Después de haber definido tu archivo de servicio, puedes habilitarlo para que se inicie automáticamente al arrancar el sistema utilizando el comando systemctl enable.
 
    ```bash
-   sudo systemctl enable my_ecommerce_app.service
+   sudo systemctl enable springboot-app.service
    ```
 
 Puedes iniciar el servicio inmediatamente después de haberlo habilitado utilizando el comando systemctl start. Esto iniciará tu servicio sin necesidad de reiniciar el sistema.
 
    ```bash
-   sudo systemctl start my_ecommerce_app.service
+   sudo systemctl start springboot-app.service
    ```
 
 Puedes ver el estado actual del servicio utilizando el comando systemctl status.
 
    ```bash
-   sudo systemctl status my_ecommerce_app.service
+   sudo systemctl status springboot-app.service
    ```
 
 Para ver los registros (logs) del sistema relacionados con un servicio específico.
 
    ```bash
-   sudo journalctl -u my_ecommerce_app.service -xe
+   sudo journalctl -u springboot-app.service -xe
    ```
+
+Para ver los registros (logs) del sistema relacionados con un servicio específico en tiempo real.
+
+   ```bash
+   sudo journalctl -u springboot-app.service -f
+   ```
+
+`-f` o `--follow`: sigue el flujo de registros en tiempo real. Esto significa que verás los registros más recientes y se actualizará automáticamente a medida que se agreguen nuevos registros al archivo de registro.
 
 ### Paso 4: Probar el servicio en ejecución.
 
-Antes de probar el servicio en ejecución, asegúrate de que la instancia EC2 tenga los permisos de entrada sobre el puerto indicado.
+Antes de probar el servicio en ejecución, asegúrate de que la instancia EC2 tenga los permisos adecuados configurados para permitir el tráfico de entrada en el puerto indicado.
 
 Para probar el servicio, puedes utilizar el comando `curl` desde tu máquina local para enviar una solicitud HTTP a la instancia EC2 y recibir la respuesta. Aquí tienes un ejemplo de cómo hacerlo:
 
    ```bash
    curl ec2_public_ip:8080/api/v1/users
    ```
+Si el puerto 8080 está abierto en la instancia EC2, puedes realizar las solicitudes desde Postman o desde tu aplicación web utilizando la API Fetch.
+
+Recuerda reemplazar ec2_public_ip con la dirección IP pública de tu instancia EC2.
 
 ### Paso 5: Reiniciar una instancia EC2.
 
