@@ -20,7 +20,7 @@ En el archivo [MariaDB_installation_guide.md](MariaDB_installation_guide.md), en
 
 En el archivo [SpringBoot_App_installation_guide.md](SpringBoot_App_installation_guide.md), encontrarás instrucciones para configurar una aplicación Spring Boot en una instancia EC2 de AWS. Spring Boot es un framework de desarrollo de aplicaciones Java que simplifica el proceso de creación de aplicaciones basadas en Spring.
 
-### 5. Configuración de NGINX como Proxy Inverso.
+### 5. Configuración de NGINX como Proxy Inverso. (En contrucción)
 
 En el archivo [NGINX_installation_guide.md](NGINX_installation_guide.md), encontrarás una guía detallada para configurar NGINX como un servidor proxy inverso en una instancia EC2 de AWS. NGINX es un servidor web ligero, rápido y de alto rendimiento que se puede utilizar para enrutar el tráfico web hacia múltiples servidores backend.
 

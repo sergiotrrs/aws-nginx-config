@@ -107,63 +107,19 @@ Para la aplicación `aws-ec2-demo`, asegúrate de crear una base de datos con la
 - **User name**: mickey_mouse
 - **Password**: d1sn3y
 
-### Paso 2: Ejecuta una aplicación usando Gradle o Maven
-
-Para probar la aplicación en las instancias EC2, dirígete a la raíz del proyecto clonado y verifica los permisos del archivo `gradlew` o `mvnw`.
-
-   ```bash
-    ls -l gradlew
-   ```
-
-El archivo `gradlew` (o `mvnw`) debe tener permisos de ejecución. Si no es así, cambia los permisos para poder ejecutar el script.
-
-   ```bash
-   chmod +x gradlew
-   ```
-
-Ejecuta tu aplicación indicando las credenciales adecuadas de tu base de datos. En caso de que uses variables de entorno en tu archivo `application.propertier` ejecuta el comando:
-
--  ./gradlew bootRun -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=host_here -DMYSQLDATABASE=db_here -DMYSQLPORT=port_here -DMYSQLUSER=root/user_here -DMYSQLPASSWORD=pass_here
-
-   ```bash
-   ./gradlew bootRun -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=localhost -DMYSQLDATABASE=my_ecommerce -DMYSQLPORT=3306 -DMYSQLUSER=mickey_mouse -DMYSQLPASSWORD=d1sn3y   
-   ```
-Para detener la aplicación presionando las teclas `ctrl + c`. Deten la apliación hasta que hayas terminado con las pruebas que se describe en el siguiente paso.
-
-### Paso 3: Realiza pruebas a los endpoints de tu aplicación.
-
-Si has clonado el proyecto anteriormente, puedes registrar un nuevo usuario utilizando el comando cURL. Dado que la terminal SSH está ocupada ejecutando la aplicación Spring Boot, necesitarás abrir otra conexión SSH como se indicó en el [Paso 1: Conectar a tu instancia de AWS Linux](#paso-1-conectar-a-tu-instancia-de-aws-linux). 
-
-- Dado que la conexión se realizará a una base de datos persistente, después de hacer una solicitud POST puedes detener tu aplicación y verificar que los datos agregados seguirán registrados.
-
-Una vez que hayas abierto otra conexión SSH, ejecuta los siguientes comandos:
-
-   ```bash
-    curl -d '{"email":"winnie@disney.com","password":"honeyhoney","firstName":"winnie", "lastName":"pooh"}' -H "Content-Type:application/json" localhost:8080/api/v1/users
-   ```
-
-   ```bash
-    curl localhost:8080/api/v1/users
-   ```
-
-Una vez finalizado las pruebas deten tu aplicación presionando las teclas `ctrl + c`.
-
-## Genera el empaquetado de tu aplicación (.jar).
+### Paso 2: Genera el empaquetado(.jar) de tu aplicación.
 
 Un archivo .jar es un archivo Java que se utiliza para empaquetar y distribuir aplicaciones Java. "JAR" significa "Java ARchive". Cuando ejecutas un archivo .jar de una aplicación Spring Boot, automáticamente se inicia un servidor embebido que ejecuta tu aplicación. Esto significa que no necesitas preocuparte por configurar un servidor web por separado; Spring Boot se encarga de todo por ti.
- 
-### Paso 1: Genera el empaquetado(.jar) de tu aplicación.
 
 Para generar el empaquetado (.jar) de tu aplicación, ejecuta el siguiente comando desde la raíz de tu aplicación. Si estás utilizando Maven, ejecuta `./mvnw clean package`.
-
 
    ```bash
    ./gradlew build   
    ```
 
-## Paso 2: Ejecuta el archivo empaquetado de tu aplicación.
+## Paso 3: Ejecuta el archivo empaquetado de tu aplicación.
 
-Para ejecutar el archivo empaquetado de tu aplicación, utiliza el siguiente comando desde la raíz de tu aplicación. Si estás utilizando variables de entorno, indícalo como se muestra a continuación:
+Para ejecutar el archivo empaquetado de tu aplicación, utiliza el siguiente comando desde la raíz de tu aplicación `java -jar springboot_app.jar`. Si estás utilizando variables de entorno, indícalo como se muestra a continuación:
  
    ```bash
    java -jar -Dspring.profiles.active=prod -Dserver.port=8080 -DMYSQLHOST=localhost -DMYSQLDATABASE=my_ecommerce -DMYSQLPORT=3306 -DMYSQLUSER=mickey_mouse -DMYSQLPASSWORD=d1sn3y build/libs/aws-ec2-demo-1.0.0.jar
@@ -176,6 +132,26 @@ Si usas Maven cambia la ruta del empaquetado a `/target/my-ecommerce-demo-1.0.0.
    ```
 
 Deten la ejecución de tu empaquetado presionando las teclas `ctrl + c`.
+
+### Paso 4 (opcional): Realiza pruebas a los endpoints de tu aplicación.
+
+Si la aplicación de Spring Boot está detenida, ejecútala nuevamente como se indicó en el paso anterior. Puedes registrar un nuevo usuario utilizando el comando cURL. Dado que la terminal SSH está ocupada ejecutando la aplicación Spring Boot, necesitarás abrir otra conexión SSH como se indicó en el [Paso 1: Conectar a tu instancia de AWS Linux](#paso-1-conectar-a-tu-instancia-de-aws-linux). 
+
+Una vez que hayas abierto otra conexión SSH, ejecuta los siguientes comandos:
+
+   ```bash
+    curl -d '{"email":"winnie@disney.com","password":"honeyhoney","firstName":"winnie", "lastName":"pooh"}' -H "Content-Type:application/json" localhost:8080/api/v1/users
+   ```
+
+   ```bash
+    curl localhost:8080/api/v1/users
+   ```
+
+- Si el puerto por defecto(8080) está abierto en la instancia EC2, puedes hacer peticiones http usando Postman escribiendo la URL `http://your_instance_public_ip:8080/api/v1/users`
+
+- Debido que la conexión se realizará a una base de datos persistente, después de hacer una solicitud POST puedes detener tu aplicación y verificar que los datos agregados seguirán registrados.
+
+Una vez finalizado las pruebas deten tu aplicación presionando las teclas `ctrl + c`.
 
 ## Configurar y habilitar el servicio de tu aplicación en la instancia EC2.
 
@@ -191,12 +167,48 @@ Primero, necesitas crear un archivo de servicio en el directorio /etc/systemd/sy
 
 ### Paso 2: Edita el archivo de servicios.
 
+El siguiente comando te ayudará a iniciar la configuración del archivo .service. Recuerda escribir correctamente el nombre del archivo creado anteriormente.
+
+   ```bash
+   sudo tee -a /etc/systemd/system/springboot-app.service <<EOF
+
+   # Gestionar y controlar la ejecución de una aplicación 
+   # Spring Boot en un entorno Linux.
+   #
+   # Si no lo requiere puede omitir profile.active, server.port 
+   # y las variables de entorno.
+   #
+   # Cambia /home/ec2-user/app/app.jar por la ruta de tu archivo .jar
+   # Ubicación del archivo /etc/systemd/system/springboot-app.service
+   #
+   #
+
+   [Unit]
+   Description=Spring Boot App
+   After=syslog.target
+
+   [Service]
+   User=ec2-user
+   ExecStart=java -jar -Dspring.profiles.active=prod -Dserver.port=8080 /home/ec2-user/aws-ec2-demo/build/libs/aws-ec2-demo-1.0.0.jar
+   Environment="MYSQLHOST=localhost"
+   Environment="MYSQLPORT=3306"
+   Environment="MYSQLDATABASE=my_ecommerce"
+   Environment="MYSQLUSER=mickey_mouse"
+   Environment="MYSQLPASSWORD=d1sn3y"
+   SuccessExitStatus=143
+
+   [Install]
+   WantedBy=multi-user.target
+   EOF
+   ```
+
 Utiliza un editor de texto para editar este archivo y definir cómo systemd debería manejar tu servicio. Por ejemplo, podrías especificar el comando que systemd debería ejecutar para iniciar tu servicio y otras opciones de configuración relevantes.
 
    ```bash
    sudo nano /etc/systemd/system/springboot-app.service
    ```
-Escribe a continuación la siguiente configuración en el archivo `springboot-app.service`. 
+
+Modifica a continuación la configuración en el archivo `springboot-app.service` de acuerdo a tu aplicación. La apariencia de la configuración debe ser similar a lo siguiente:
 
    ```script
    # Gestionar y controlar la ejecución de una aplicación 
