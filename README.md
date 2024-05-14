@@ -4,23 +4,19 @@ En este repositorio encontrarás información detallada y guías paso a paso par
 
 ## Contenido del Repositorio.
 
-### 1. Guía de Instancias EC2 en AWS.
-
-En el archivo [AWS_EC2_setup_guide.md](AWS_EC2_setup_guide.md), encontrarás instrucciones detalladas sobre cómo crear y configurar instancias EC2 en AWS. Esta guía incluye pasos para lanzar una instancia gratuita, conectarte a ella, configurarla y más.
-
-### 2. Manual DNF
+### Manual DNF
 
 En el archivo [DNF_guide.md](DNF_guide.md), encontrarás una guía que explica qué es DNF y proporciona las principales instrucciones para su uso en instancias Amazon Linux. DNF es un gestor de paquetes de código abierto utilizado en algunas distribuciones de Linux, como Fedora y CentOS.
 
-### 3. Instalación de MariaDB en una Instancia EC2.
+### Instalación de MariaDB en una Instancia EC2 y creación de una base de datos.
 
-En el archivo [MariaDB_installation_guide.md](MariaDB_installation_guide.md), encontrarás instrucciones paso a paso para instalar y configurar MariaDB en una instancia EC2 de AWS. MariaDB es un sistema de gestión de bases de datos relacional de código abierto.
+En el archivo [MariaDB_installation_guide.md](MariaDB_installation_guide.md), encontrarás instrucciones paso a paso para instalar y configurar MariaDB en una instancia EC2 de AWS. MariaDB es un sistema de gestión de bases de datos relacional de código abierto. En el archivo [MariaDB_createDB.md](MariaDB_createDB.md), encontrarás instrucciones para crear una base de datos y crear un usuario que tenga privilegios a esa base de datos.
 
-### 4. Configuración para la ejecución de una Aplicación Spring Boot en EC2.
+### Configuración para la ejecución de una Aplicación Spring Boot en EC2.
 
 En el archivo [SpringBoot_App_installation_guide.md](SpringBoot_App_installation_guide.md), encontrarás instrucciones para configurar una aplicación Spring Boot en una instancia EC2 de AWS. Spring Boot es un framework de desarrollo de aplicaciones Java que simplifica el proceso de creación de aplicaciones basadas en Spring.
 
-### 5. Configuración de NGINX como Proxy Inverso. (En contrucción)
+### Configuración de NGINX como Proxy Inverso. 
 
 En el archivo [NGINX_installation_guide.md](NGINX_installation_guide.md), encontrarás una guía detallada para configurar NGINX como un servidor proxy inverso en una instancia EC2 de AWS. NGINX es un servidor web ligero, rápido y de alto rendimiento que se puede utilizar para enrutar el tráfico web hacia múltiples servidores backend.
 
