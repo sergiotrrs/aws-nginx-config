@@ -55,3 +55,6 @@ Gradle es una herramienta de automatización de compilación que se utiliza para
 ## Construyendo el proyecto con Gradle
 
 Necesitamos ejecutar varias tareas en nuestro proyecto, tales como configurar, descargar dependencias, compilar clases Java, ejecutar pruebas y crear archivos `jar`. Para ello haremos uso de las tareas de gradle.
+
+Generar el jar con doble click en: 
+Gradle Task-> ecommerce -> build -> build
