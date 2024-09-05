@@ -8,6 +8,10 @@ En este repositorio encontrarás información detallada y guías paso a paso par
 
 En el archivo [DNF_guide.md](DNF_guide.md), encontrarás una guía que explica qué es DNF y proporciona las principales instrucciones para su uso en instancias Amazon Linux. DNF es un gestor de paquetes de código abierto utilizado en algunas distribuciones de Linux, como Fedora y CentOS.
 
+### Preparando nuestro Proyecto Integrador.
+
+En el archivo [Preparando_proyecto_integ.md](Preparando_proyecto_integ.md), encontrarás las configuraciones necesarias que debemos realizar en los archivos de nuestro Proyecto Integrador. Hasta este momento hemos trabajado de manera local creando el frontend con HTML, CSS y Bootstrap, el backend con Java y Spring boot y, nuestra base de datos con MySQL. Es momento de realizar cambios que nos permitirán trabajar a nivel producción con AWS.
+
 ### Instalación de MariaDB en una Instancia EC2 y creación de una base de datos.
 
 En el archivo [MariaDB_installation_guide.md](MariaDB_installation_guide.md), encontrarás instrucciones paso a paso para instalar y configurar MariaDB en una instancia EC2 de AWS. MariaDB es un sistema de gestión de bases de datos relacional de código abierto. En el archivo [MariaDB_createDB.md](MariaDB_createDB.md), encontrarás instrucciones para crear una base de datos y crear un usuario que tenga privilegios a esa base de datos.
