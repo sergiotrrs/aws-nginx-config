@@ -60,16 +60,24 @@ Es necesario configurar los permisos para los grupos de seguridad. Para ello sig
 4. Presionar el botón `Crear grupo de seguridad` para comenzar la configuración de nuestro grupo de seguridad.
 5. Configurar el nombre del grupo de seguridad, así como la descripción "Permitir el acceso SSH, MariaDB y Spring boot".
 6. Configurar las Reglas de Entrada. 
+
     Vamos a agregar varias reglas. Para agregar la primer regla, selección el botón `Agregar regla` y configurar de la siguiente manera:
+
     - Tipo: SSH
     - Origen: Anywhere-IPv4
+
     Agregamos una segunda regla seleccionando el botón `Agregar regla` y configurando de la siguiente manera:
+
     - Tipo: HTTP
     - Origen: Anywhere-IPv4
+
     Agregamos una tercera regla seleccionando el botón `Agregar regla` y configurando de la siguiente manera:
+
     - Tipo: MYSQL/Aurora
     - Origen: Anywhere-IPv4
+
     Agregamos una cuarta regla seleccionando el botón `Agregar regla` y configurando de la siguiente manera:
+    
     - Tipo: TPC personalizado
     - Intervalo de puertos: 8080
     - Origen: Anywhere-IPv4
