@@ -44,7 +44,7 @@ Es necesario crear tantos pares de claves sean necesarios para asegurar las inst
 
 Al crear el par de claves se genera un archivo `'nombre-par-claves'.pem` con el nombre que asignamos a nuestro par de claves.
 
-*Recuerda crear el par de claves, según la región o regiones que trabajarás*
+*Recuerda crear el par de claves, según la región o regiones que trabajarás.*
 
 ## Grupos de seguridad
 
@@ -83,7 +83,7 @@ Es necesario configurar los permisos para los grupos de seguridad. Para ello sig
     - Origen: Anywhere-IPv4
 7. Presionamos el botón `Crear grupo de seguridad` para finalizar la creación.
 
-*Recuerda crear Grupos de seguridad, según la región o regiones que trabajarás*
+*Recuerda crear Grupos de seguridad, según la región o regiones que trabajarás.*
 
 ## Aprovisionando instancias en EC2.
 
@@ -103,8 +103,22 @@ Podemos ver todas las instancias que hemos aprovisionado.
 
 > Podemos generar el número de instancias necesarias escribiendo el número de instancias.
 
-*Recuerda aprovisionar Instancias, según la región o regiones que trabajarás*
+*Recuerda aprovisionar Instancias, según la región o regiones que trabajarás.*
 
 ## Cambiando el estado de las instancias.
 
-**EN PROGRESO**
+En AWS, las instancias de EC2 pasan por varios estados durante su **ciclo de vida**. Cada estado refleja la actividad o el estado actual de la instancia. Estos estados permiten gestionar de manera flexible las instancias, controlando el uso y los costos según las necesidades de la aplicación.
+
+*Estados de instancias:*
+
+- **Pendiente**: ste es el estado inicial de una instancia cuando se está lanzando..
+- **En ejecución**: En ejecución, funcionando correctamente y lista para ser usada.
+- **Deteniéndose**: En proceso de detenerse.
+- **Detenida**: La instancia ha sido detenida correctamente, aunque la configuración de la instancia permanece intacta.
+- **Apagándose**: Este estado indica que la instancia está en proceso de apagarse de manera permanente.
+- **Terminada**: Instancia eliminada permanentemente.
+- **Reiniciando**: La instancia está reiniciándose, conservando sus configuraciones.
+
+Dentro del panel de instancias podemos visualizar las instancias aprovisionadas con la información de cada una (nombre, Id, estado, tipo, estatus, entre otras) y podemos modificar los estados seleccionando la(s) instancia(s) necesarias.
+
+*Recuerda que las instancias se encuentran en las regiones donde se aprovisionaron.*
