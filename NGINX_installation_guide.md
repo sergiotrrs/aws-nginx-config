@@ -93,12 +93,12 @@ Por otro lado, al usar las carpetas `sites-available` y `sites-enabled`, puedes 
 ### Paso 2: Crear el archivo de configuración para el proxy inverso.
 
    ```bash
-   sudo touch /etc/nginx/sites-available/reverse_proxy
+   sudo touch /etc/nginx/sites-available/reverse-proxy
    ```
 
-### Paso 3: Edita el archivo de configuración `reverse_proxy`.
+### Paso 3: Edita el archivo de configuración `reverse-proxy`.
 
-El siguiente comando te ayudará a iniciar la configuración del archivo `reverse_proxy`. Recuerda escribir correctamente el nombre del archivo creado anteriormente.
+El siguiente comando te ayudará a iniciar la configuración del archivo `reverse-proxy`. Recuerda escribir correctamente el nombre del archivo creado anteriormente.
 
    ```bash
    sudo tee -a /etc/nginx/sites-available/reverse-proxy <<EOF

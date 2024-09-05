@@ -4,9 +4,17 @@ En este repositorio encontrarás información detallada y guías paso a paso par
 
 ## Contenido del Repositorio.
 
+### AWS y EC2
+
+En el archivo [AWS_EC2_setup_guide.md](AWS_EC2_setup_guide.md), encontrarás una guía que explica qué es AWS, EC2 y las ventajas de utilizar instancias de EC2. Así mismo, encontrarás instrucciones paso a paso para archivos para grupos de seguridad y para provisionar instancias en la consola de AWS.
+
 ### Manual DNF
 
 En el archivo [DNF_guide.md](DNF_guide.md), encontrarás una guía que explica qué es DNF y proporciona las principales instrucciones para su uso en instancias Amazon Linux. DNF es un gestor de paquetes de código abierto utilizado en algunas distribuciones de Linux, como Fedora y CentOS.
+
+### Preparando nuestro Proyecto Integrador.
+
+En el archivo [Preparando_proyecto_Integrador.md](Preparando_proyecto_Integrador.md), encontrarás las configuraciones necesarias que debemos realizar en los archivos de nuestro Proyecto Integrador. Hasta este momento hemos trabajado de manera local creando el frontend con HTML, CSS y Bootstrap, el backend con Java y Spring boot y, nuestra base de datos con MySQL. Es momento de realizar cambios que nos permitirán trabajar a nivel producción con AWS.
 
 ### Instalación de MariaDB en una Instancia EC2 y creación de una base de datos.
 
