@@ -5,7 +5,7 @@ El proyecto integrador se encuentra desarrollado de la siguiente manera:
 - **Backend**: Spring boot con Java,
 - **Base de datos**: MySQL.
 
-## Acoplando frontend con backend
+## Acoplando frontend con backend.
 
 El primer paso que debemos realizar para que nuestro proyecto pueda vivir de manera remota es realizar el acoplamiento de la carpeta donde se desarrolló el frontend con la carpeta donde se desarrolló el backend.
 
@@ -16,7 +16,7 @@ Para realizar el acoplamiento, copiaremos la carpeta del frontend dentro de la c
 Puedes consultar el siguiente repositorio para observar la nueva estructura del proyecto
 [Repositorio de ejemplo](https://github.com/sergiotrrs/aws-ec2-demo.git)
 
-## Configurando mi URL remota
+## Configurando mi URL remota.
 
 Solicita la `IP pública` proporcionada por la instancia de AWS a la persona encargada, ya que esta será la dirección que reemplazarás en el frontend y te permitirá vincular con el servidor remoto que configuraremos más adelante.
 
@@ -24,7 +24,9 @@ Hasta este momento hemos desarrollado nuestra API y realizado pruebas HTTP de ma
 
 *Revisa cada archivo de tu código para asegurarte que se realicen los cambios correctos.*
 
-## Propiedades para Producción (Variables de entorno)
+Así mismo, solicita a la persona encargada la información referente a tu instancia aprovisionada en AWS, como Región, Nombre de instancia, Id de instancia y el archivo `'nombre-par-claves'.pem` que servirá como el Par de claves para conectarte posteriormente a la instancia.
+
+## Propiedades para Producción (Variables de entorno).
 
 Por seguridad, es necesario ocultar las propiedades del proyecto como variables de entorno, ya que de esta manera no exponemos información sensible a nivel producción. Para ello, realizamos lo siguiente:
 
@@ -52,7 +54,7 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 Gradle es una herramienta de automatización de compilación que se utiliza para gestionar y construir proyectos de software. En un proyecto de Spring Boot, Gradle permite gestionar las dependencias, compilar el código, ejecutar pruebas, crear archivos ejecutables (.jar o .war) y desplegar la aplicación de manera eficiente.
 
-## Construyendo el proyecto con Gradle
+## Construyendo el proyecto con Gradle.
 
 Necesitamos ejecutar varias tareas en nuestro proyecto, tales como configurar, descargar dependencias, compilar clases Java, ejecutar pruebas y crear archivos `jar`. Para ello haremos uso de las tareas de gradle.
 
@@ -81,5 +83,28 @@ Para el deploy remoto de nuestro proyecto, necesitamos enviar el código y los a
 
 Con esto, le decimos a Github que no ignore los archivos que se encuentran dentro del directorio `build`.
 
-## Creación y despliegue en Github
+## Creación y despliegue en Github.
 
+Una vez que hayamos realizado las configuraciones necesarias en nuestro proyecto integrador, es momento de crear un repositorio público y vacío en Github para realizar la conexión a dicho repositorio. Para ello sigue los pasos habituales desde git:
+
+    ```bash
+    git init
+    ```
+    ```bash
+    git add .
+    ```
+    ```bash
+    git commit -m 'comentario'
+    ```
+    ```bash
+    git remote add origin 'url.git'
+    ```
+    ```bash
+    git push -u origin main
+    ```
+
+## Pasos finales.
+
+Para mayor organización, se sugiere crear una carpeta general que contenga al mismo nivel la carpeta del proyecto integrador (frontend integrado al backend) y el archivo `'nombre-par-claves'.pem` para continuar con las siguientes configuraciones de AWS.
+
+Te invitamos a consultar el archivo [MariaDB_installation_guide.md](MariaDB_installation_guide.md) para conocer las próximas configuraciones necesarias para el despliegue de la Aplicación.

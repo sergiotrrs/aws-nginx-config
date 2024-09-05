@@ -118,6 +118,7 @@ En AWS, las instancias de EC2 pasan por varios estados durante su **ciclo de vid
 - **Apagándose**: Este estado indica que la instancia está en proceso de apagarse de manera permanente.
 - **Terminada**: Instancia eliminada permanentemente.
 - **Reiniciando**: La instancia está reiniciándose, conservando sus configuraciones.
+- **Hibernación**: Permite "pausar" una instancia en lugar de detenerla completamente, preservándola en el mismo estado en que se encontraba antes de la hibernación.
 
 Dentro del panel de instancias podemos visualizar las instancias aprovisionadas con la información de cada una (nombre, Id, estado, tipo, estatus, entre otras) y podemos modificar los estados seleccionando la(s) instancia(s) necesarias.
 
