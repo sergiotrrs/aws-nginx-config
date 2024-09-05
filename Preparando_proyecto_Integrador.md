@@ -56,5 +56,30 @@ Gradle es una herramienta de automatización de compilación que se utiliza para
 
 Necesitamos ejecutar varias tareas en nuestro proyecto, tales como configurar, descargar dependencias, compilar clases Java, ejecutar pruebas y crear archivos `jar`. Para ello haremos uso de las tareas de gradle.
 
-Generar el jar con doble click en: 
-Gradle Task-> ecommerce -> build -> build
+Tenemos dos opciones disponibles para realizar la construcción de nuestro proyecto (`'archivo' .jar`):
+
+### Opción 1.
+Ubicar la opción de `Gradle Task` en la consola. Seleccionar la carpeta del proyecto `nombre_proyecto`, seleccionar `build` y dar doble click en la opción de `build` para iniciar la construcción del proyecto.
+
+### Opción 2.
+Ubicarse en la carpeta del proyecto y ejecutar el comando:
+
+    ```bash
+    ./gradlew build
+    ```
+
+Una vez finalizada la construción del proyecto, se generan una serie de carpetas y un archivo llamado `'proyecto-version'.jar` según el nombre de nuestro proyecto y la versión del mismo. Este archivo se localiza en la ruta `build/libs/'proyecto-version'.jar`
+
+## Archivo .gitignore
+
+Para el deploy remoto de nuestro proyecto, necesitamos enviar el código y los archivos .jar a un repositorio de Github, pero dichos archivos no deben ser ignorados. Para resolverlo, es necesario modificar el archivo `.gitignore` localizando las líneas siguientes y agregando un comentario (#) al inicio de las mismas.
+
+    ```bash
+    # build
+    # !**/src/main/**/build/
+    ```
+
+Con esto, le decimos a Github que no ignore los archivos que se encuentran dentro del directorio `build`.
+
+## Creación y despliegue en Github
+
