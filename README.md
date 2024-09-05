@@ -6,7 +6,7 @@ En este repositorio encontrarás información detallada y guías paso a paso par
 
 ### AWS y EC2
 
-En el archivo [AWS_EC2_setup_guide.md](AWS_EC2_setup_guide.md), encontrarás una guía que explica qué es AWS, EC2 y las ventajas de utilizar instancias de EC2. Así mismo, encontrarás instrucciones paso a paso para archivos para grupos de seguridad y para provisionar instancias en la consola de AWS.
+En el archivo [AWS_EC2_setup_guide.md](AWS_EC2_setup_guide.md), encontrarás una guía que explica qué es AWS, EC2 y las ventajas de utilizar instancias de EC2. Así mismo, encontrarás instrucciones paso a paso para configurar  grupos de seguridad, pares de claves y aprovisionar instancias en la consola de AWS.
 
 ### Manual DNF
 
