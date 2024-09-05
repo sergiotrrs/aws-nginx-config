@@ -14,7 +14,7 @@ En el archivo [DNF_guide.md](DNF_guide.md), encontrarás una guía que explica q
 
 ### Preparando nuestro Proyecto Integrador.
 
-En el archivo [Preparando_proyecto_Integrador.md],(Preparando_proyecto_Integrador.md), encontrarás las configuraciones necesarias que debemos realizar en los archivos de nuestro Proyecto Integrador. Hasta este momento hemos trabajado de manera local creando el frontend con HTML, CSS y Bootstrap, el backend con Java y Spring boot y, nuestra base de datos con MySQL. Es momento de realizar cambios que nos permitirán trabajar a nivel producción con AWS.
+En el archivo [Preparando_proyecto_Integrador.md](Preparando_proyecto_Integrador.md), encontrarás las configuraciones necesarias que debemos realizar en los archivos de nuestro Proyecto Integrador. Hasta este momento hemos trabajado de manera local creando el frontend con HTML, CSS y Bootstrap, el backend con Java y Spring boot y, nuestra base de datos con MySQL. Es momento de realizar cambios que nos permitirán trabajar a nivel producción con AWS.
 
 ### Instalación de MariaDB en una Instancia EC2 y creación de una base de datos.
 
