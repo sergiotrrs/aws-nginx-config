@@ -11,7 +11,7 @@ El primer paso que debemos realizar para que nuestro proyecto pueda vivir de man
 
 > Es necesario recordarte que el punto de acceso de nuestro frontend es el archivo `index.html` el cual se debe encontrar en el nivel principal.
 
-Para realizar el acoplamiento, copiaremos la carpeta del frontend dentro de la carpeta del backend, en la ruta `src/main/resources/static`
+Para realizar el acoplamiento, copiaremos el contenido de la carpeta del frontend dentro de la carpeta del backend, en la ruta `src/main/resources/static`
 
 Puedes consultar el siguiente repositorio para observar la nueva estructura del proyecto
 [Repositorio de ejemplo](https://github.com/sergiotrrs/aws-ec2-demo.git)
@@ -22,7 +22,7 @@ Solicita la `IP pública` proporcionada por la instancia de AWS a la persona enc
 
 Hasta este momento hemos desarrollado nuestra API y realizado pruebas HTTP de manera local, pero necesitamos conectarnos a una IP remota para realizar pruebas de manera remota. Por ello, localiza todas las url de tu proyecto que apunten a `localhost:8080` y sustitúyela por la `IP pública` proporcionada.
 
-*Revisa cada archivo de tu código para asegurarte que se realicen los cambios correctos.*
+**Revisa cada archivo de tu código para asegurarte que se realicen los cambios correctos.**
 
 Así mismo, solicita a la persona encargada la información referente a tu instancia aprovisionada en AWS, como Región, Nombre de instancia, Id de instancia y el archivo `'nombre-par-claves'.pem` que servirá como el Par de claves para conectarte posteriormente a la instancia.
 
@@ -44,11 +44,17 @@ spring.datasource.username=${MYSQLUSER}
 spring.datasource.password=${MYSQLPASSWORD}
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ```
-3. En la carpeta del proyecto abrir el archivo `.gitignore` y realizar comentarios sobre las siguientes líneas:
-```properties
+
+## Archivo .gitignore
+
+Para el deploy remoto de nuestro proyecto, necesitamos enviar el código y los archivos .jar a un repositorio de Github, pero dichos archivos no deben ser ignorados. Para resolverlo, es necesario modificar el archivo `.gitignore` localizando las líneas siguientes y agregando un comentario (#) al inicio de las mismas.
+
+```bash
 # build
 # !**/src/main/**/build/
 ```
+
+Con esto, le decimos a Github que no ignore los archivos que se encuentran dentro del directorio `build`.
 
 ## ¿Qué es Gradle y para qué sirve en Spring Boot?
 
@@ -66,42 +72,35 @@ Ubicar la opción de `Gradle Task` en la consola. Seleccionar la carpeta del pro
 ### Opción 2.
 Ubicarse en la carpeta del proyecto y ejecutar el comando:
 
-    ```bash
-    ./gradlew build
-    ```
+```bash
+./gradlew build
+```
 
 Una vez finalizada la construción del proyecto, se generan una serie de carpetas y un archivo llamado `'proyecto-version'.jar` según el nombre de nuestro proyecto y la versión del mismo. Este archivo se localiza en la ruta `build/libs/'proyecto-version'.jar`
-
-## Archivo .gitignore
-
-Para el deploy remoto de nuestro proyecto, necesitamos enviar el código y los archivos .jar a un repositorio de Github, pero dichos archivos no deben ser ignorados. Para resolverlo, es necesario modificar el archivo `.gitignore` localizando las líneas siguientes y agregando un comentario (#) al inicio de las mismas.
-
-    ```bash
-    # build
-    # !**/src/main/**/build/
-    ```
-
-Con esto, le decimos a Github que no ignore los archivos que se encuentran dentro del directorio `build`.
 
 ## Creación y despliegue en Github.
 
 Una vez que hayamos realizado las configuraciones necesarias en nuestro proyecto integrador, es momento de crear un repositorio público y vacío en Github para realizar la conexión a dicho repositorio. Para ello sigue los pasos habituales desde git:
 
-    ```bash
-    git init
-    ```
-    ```bash
-    git add .
-    ```
-    ```bash
-    git commit -m 'comentario'
-    ```
-    ```bash
-    git remote add origin 'url.git'
-    ```
-    ```bash
-    git push -u origin main
-    ```
+```bash
+git init
+```
+
+```bash
+git add .
+```
+
+```bash
+git commit -m 'comentario'
+```
+
+```bash
+git remote add origin 'url.git'
+```
+
+```bash
+git push -u origin main
+```
 
 ## Pasos finales.
 

@@ -58,7 +58,7 @@ Si no cuentas con un repositorio, puede clonar el siguiente proyecto de Spring B
    ```
 El proyecto `aws-ec2-demo`cuenta con dos perfiles, en el perfil por default usa una base de datos en memoria H2, en el perfil `dev` realiza la conexión con una base de datos en MySQL.
 
-## Ejecuta una aplicación de Spring Boot con una base de datos en memoria. 
+## Ejecuta una aplicación de Spring Boot con una base de datos en memoria (H2). 
 
 ### Paso 1: Ejecuta una aplicación usando Gradle o Maven.
 
@@ -274,7 +274,7 @@ Para ver los registros (logs) del sistema relacionados con un servicio específi
    sudo journalctl -u springboot-app.service -f
    ```
 
-`-f` o `--follow`: sigue el flujo de registros en tiempo real. Esto significa que verás los registros más recientes y se actualizará automáticamente a medida que se agreguen nuevos registros al archivo de registro.
+   `-f` o `--follow`: sigue el flujo de registros en tiempo real. Esto significa que verás los registros más recientes y se actualizará automáticamente a medida que se agreguen nuevos registros al archivo de registro.
 
 ### Paso 4: Probar el servicio en ejecución.
 
