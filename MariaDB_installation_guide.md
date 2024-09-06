@@ -43,6 +43,9 @@ Inicie el servicio de MariaDB y habilítelo para que se inicie automáticamente 
 
    ```bash
    sudo systemctl start mariadb
+   ```
+
+   ```bash
    sudo systemctl enable mariadb
    ```
 
