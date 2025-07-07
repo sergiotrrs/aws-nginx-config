@@ -1,6 +1,6 @@
 # Configuración de NGINX como Proxy Inverso.
 
-## ¿Por qué no utilizar directamente el puerto 80 en mi aplicación de Spring Boot?
+## ¿Por qué utilizar el puerto 8080 y no utilizar directamente el puerto 80 en mi aplicación de Spring Boot?
 
 En Spring Boot, el puerto por defecto para escuchar solicitudes HTTP es el 8080. Sin embargo, no es posible configurar directamente el puerto 80 en la propiedad `server.port`, del archivo `application.properties`, debido a restricciones de seguridad y permisos.
 
@@ -50,60 +50,48 @@ El comando `chmod` en sistemas operativos tipo Unix se utiliza para cambiar los 
 
 Antes de instalar cualquier paquete nuevo, es una buena práctica actualizar los paquetes existentes en el sistema.
 
-   ```bash
-   sudo dnf update
-   ```
+```bash
+sudo dnf update
+```
 
 ### Paso 3: Instalar NGINX
 
 Para instalar NGINX en AWS Linux, utilice el siguiente comando:
 
-   ```bash
-   sudo dnf install nginx
-   ```
+```bash
+sudo dnf install nginx -y
+```
 
 ### Paso 4: Iniciar el servicio NGINX
 
 Inicie el servicio de nginx y habilítelo para que se inicie automáticamente en el arranque del sistema.
 
-   ```bash
-   sudo systemctl start nginx   
-   ```
-   ```bash   
-   sudo systemctl enable nginx
-   ```
+```bash
+sudo systemctl start nginx   
+```
+```bash   
+sudo systemctl enable nginx
+```
 
- `systemctl` es una herramienta de administración de servicios en sistemas Linux. Permite interactuar con el sistema de inicio, controlar servicios (como iniciar, detener, reiniciar, habilitar o deshabilitar), ver el estado de los servicios y más
-
+`systemctl` es una herramienta de administración de servicios en sistemas Linux. Permite interactuar con el sistema de inicio, controlar servicios (como iniciar, detener, reiniciar, habilitar o deshabilitar), ver el estado de los servicios y más
 
 ## Configurar NGINX como proxy inverso
 
-Para configurar un proxy inverso de NGINX, puedes hacerlo directamente en el archivo `nginx.conf` o puedes optar por la estructura más organizada de tener carpetas `sites-available` y `sites-enabled`. En la configuración directa en `nginx.conf`, generalmente buscarías la sección http y agregarías las directivas necesarias para configurar el proxy inverso. 
+La práctica moderna, y la configuración por defecto en la mayoría de las distribuciones actuales, es utilizar el directorio `/etc/nginx/conf.d/`. Todos los archivos que terminen en `.conf` dentro de este directorio son cargados automáticamente por NGINX. Este método es más simple y limpio que el antiguo sistema de `sites-available` y `sites-enabled`, ya que no requiere la creación de directorios adicionales ni enlaces simbólicos.
 
-Por otro lado, al usar las carpetas `sites-available` y `sites-enabled`, puedes crear archivos de configuración separados para cada sitio o aplicación que necesite un proxy inverso, lo que puede ser más fácil de mantener en entornos con múltiples configuraciones. Una vez que hayas configurado los archivos de configuración en sites-available, puedes habilitarlos creando enlaces simbólicos desde sites-enabled. Esto permite una gestión más modular y organizada de las configuraciones de proxy inverso en NGINX.
+### Paso 1: Crear el archivo de configuración para la aplicación
 
-### Paso 1: Crear carpetas `site-enabled` y `site-available`
+Crea un nuevo archivo de configuración directamente en el directorio conf.d. Dale un nombre descriptivo, por ejemplo `my-ecommerce-demo.conf`.
 
-- sites-available: Este directorio se utiliza para almacenar archivos de configuración de sitios web disponibles. Estos archivos pueden contener la configuración de diferentes sitios web que podrían ser servidos por NGINX, pero no están activos actualmente.
+```bash
+sudo nano /etc/nginx/conf.d/my-ecommerce-demo.conf
+```
 
-- sites-enabled: En este directorio se colocan enlaces simbólicos (también conocidos como "symlinks") a los archivos de configuración de los sitios web que están activos y se están sirviendo actualmente. NGINX lee la configuración de los sitios web desde estos archivos en lugar de los archivos ubicados directamente en sites-available.
+### Paso 2: Agregar la configuración del proxy inverso
 
-   ```bash
-   sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled
-   ```
+Pega la siguiente configuración en el archivo que acabas de crear. Este bloque le dice a NGINX que escuche en el puerto 80 y redirija todo el tráfico a tu aplicación Spring Boot que se ejecuta en el puerto 8080.
 
-### Paso 2: Crear el archivo de configuración para el proxy inverso.
-
-   ```bash
-   sudo touch /etc/nginx/sites-available/reverse-proxy
-   ```
-
-### Paso 3: Edita el archivo de configuración `reverse-proxy`.
-
-El siguiente comando te ayudará a iniciar la configuración del archivo `reverse-proxy`. Recuerda escribir correctamente el nombre del archivo creado anteriormente.
-
-   ```bash
-   sudo tee -a /etc/nginx/sites-available/reverse-proxy <<EOF
+```bash
    # This configuration effectively sets up a reverse proxy 
    # server on port 80 that forwards incoming requests to a 
    # backend server running on localhost:8080
@@ -114,15 +102,19 @@ El siguiente comando te ayudará a iniciar la configuración del archivo `revers
          server_name  localhost;
 
       location / {
+         # Pasa todas las solicitudes a la API de Spring Boot que se ejecuta en el puerto 8080
          proxy_pass http://localhost:8080;
+         # Headers importantes para que la aplicación backend conozca la solicitud original
          proxy_set_header Host $host;
          proxy_set_header X-Real-IP $remote_addr;
          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
          proxy_set_header X-Forwarded-Proto $scheme;
       }
    }
-   EOF
-   ```
+```
+
+Guarda el archivo y sal del editor (`Ctrl+X`, luego `Y`, y `Enter`).
+
 Esta configuración establece un bloque de servidor para un proxy inverso en NGINX. Aquí hay un desglose de lo que hace cada sección:
 
 - listen 80;: Configura NGINX para escuchar en el puerto 80 para conexiones HTTP entrantes.
@@ -137,35 +129,8 @@ Dentro del bloque location / { }:
 - proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;: Agrega la dirección IP del cliente al encabezado X-Forwarded-For de la solicitud enmascarada.
 - proxy_set_header X-Forwarded-Proto $scheme;: Establece el encabezado X-Forwarded-Proto de la solicitud enmascarada a 'http' o 'https' según el protocolo de la solicitud original.
 
-### Paso 4: Crear el enlace simbólico entre `site-enabled` y `site-available`
 
-El enlace simbólico creado por esta línea de comando permitirá que NGINX utilice el archivo de configuración reverse-proxy ubicado en sites-available, haciéndolo efectivo al incluirlo en el directorio sites-enabled. Esto facilita la gestión de múltiples configuraciones de sitios web, ya que puedes habilitar o deshabilitar fácilmente diferentes configuraciones simplemente creando o eliminando enlaces simbólicos en el directorio sites-enabled.
-
-   ```bash
-   sudo ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
-   ```
-
-### Paso 5: Incluir el archivo de configuración de `sites-enabled` en `nginx.conf`
-
-- include: Es una directiva de NGINX que se utiliza para incluir archivos de configuración adicionales dentro del archivo principal de configuración (nginx.conf). Esto permite modularizar y organizar la configuración de NGINX en múltiples archivos.
-
-Agrega la siguiente línea `include /etc/nginx/sites-enabled/*;` en el archivo `nginx.conf` después de `include /etc/nginx/conf.d/*.conf;`.
-
-   ```bash
-   sudo nano /etc/nginx/nginx.conf
-   ```
-
-   ```script
-    # Load modular configuration files from the /etc/nginx/conf.d directory.
-    # See http://nginx.org/en/docs/ngx_core_module.html#include
-    # for more information.
-    include /etc/nginx/conf.d/*.conf;
-    # Load all configurations of enabled websites
-    include /etc/nginx/sites-enabled/*;
-
-   ```
-
-### Paso 6: Prueba de sintaxis en el archivo de configuración de NGINX
+### Paso 3: Prueba de sintaxis en el archivo de configuración de NGINX
 
 El comando `sudo nginx -t` se utiliza para probar el archivo de configuración de NGINX en busca de errores de sintaxis sin aplicar realmente los cambios de configuración a la instancia de NGINX en ejecución.
 
@@ -173,28 +138,40 @@ El comando `sudo nginx -t` se utiliza para probar el archivo de configuración d
    sudo nginx -t
    ```
 
-Si la configuración es válida, NGINX mostrará "nginx.conf syntax is ok" e indicará qué archivo(s) de configuración se han probado. Si hay errores de sintaxis, NGINX proporcionará un mensaje de error detallado que indicará el problema y el número de línea donde se produjo el error.
+Si todo está correcto, deberías ver un mensaje como:
+
+`nginx: the configuration file /etc/nginx/nginx.conf syntax is ok`
+
+`nginx: configuration file /etc/nginx/nginx.conf test is successful`
+
+Si hay errores de sintaxis, NGINX proporcionará un mensaje de error detallado que indicará el problema y el número de línea donde se produjo el error.
 
 ### Paso 7: Reiniciar el servicio de NGINX
 
 Para aplicar los cambios, es necesario reiniciar el servicio de NGINX. Utiliza el siguiente comando:
 
-   ```bash
-   sudo systemctl restart nginx
-   ```
+```bash
+sudo systemctl restart nginx
+```
 
 ### Paso 8: Realiza una petición HTTP en el puerto 80
 
 Antes de realizar la prueba, asegúrate de que tu backend se esté ejecutando en el puerto 8080, como se configuró anteriormente.
 
-   ```bash
-   curl localhost/api/v1/users
-   ```
+- Desde la misma instancia EC2
+
+```bash
+curl localhost/api/v1/users
+```
 
 Si el puerto 80 está permitido como entrada en la instancia EC2, puedes realizar una petición desde Postman o desde la línea de comandos local utilizando la dirección IP pública de tu instancia:
    
-   ```bash
-   curl http://your_instance_public_ip/api/v1/users
-   ```
+ - Desde tu máquina local
+  
+```bash
+curl http://your_instance_public_ip/api/v1/users
+```
 
 Recuerda reemplazar your_instance_public_ip con la dirección IP pública de tu instancia EC2.
+
+Si todo funciona, ¡has configurado exitosamente NGINX como un proxy inverso!
