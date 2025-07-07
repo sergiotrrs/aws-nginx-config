@@ -28,6 +28,10 @@ En el archivo [SpringBoot_App_installation_guide.md](SpringBoot_App_installation
 
 En el archivo [NGINX_installation_guide.md](NGINX_installation_guide.md), encontrarás una guía detallada para configurar NGINX como un servidor proxy inverso en una instancia EC2 de AWS. NGINX es un servidor web ligero, rápido y de alto rendimiento que se puede utilizar para enrutar el tráfico web hacia múltiples servidores backend.
 
+### Configuración HTTPS para API en EC2 con NGINX y Let's Encrypt
+
+En el archivo [HTTPS_setup_guide.md](HTTPS_setup_guide.md), encontrarás el proceso para asegurar una API REST de Spring Boot con un certificado SSL/TLS gratuito. Se utilizará NGINX como proxy inverso, **DuckDNS** para obtener un nombre de dominio gratuito y Let's Encrypt para la generación de certificados en una instancia EC2.
+
 ## Contribución.
 
 ¡Siéntete libre de contribuir al repositorio! Si tienes alguna mejora, corrección de errores o nuevas guías que te gustaría añadir, ¡no dudes en hacerlo! Simplemente haz un fork del repositorio, realiza tus cambios y envía un pull request.
