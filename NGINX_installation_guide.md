@@ -2,30 +2,31 @@
 
 ## ¿Por qué no utilizar directamente el puerto 80 en mi aplicación de Spring Boot?
 
-En Spring Boot, el puerto por defecto para escuchar solicitudes HTTP es el 8080. Sin embargo, no es posible configurar directamente el puerto 80 en la propiedad server.port debido a restricciones de seguridad y permisos.
+En Spring Boot, el puerto por defecto para escuchar solicitudes HTTP es el 8080. Sin embargo, no es posible configurar directamente el puerto 80 en la propiedad `server.port`, del archivo `application.properties`, debido a restricciones de seguridad y permisos.
 
 Aquí tienes algunas razones por las que no se recomienda usar el puerto 80 directamente:
 
-- Privilegios de Puerto: El puerto 80 está reservado para servicios web estándar (HTTP). En sistemas operativos Unix/Linux, los puertos por debajo del 1024 requieren privilegios de superusuario para ser utilizados. Ejecutar una aplicación Spring Boot con privilegios de superusuario no es seguro y no se recomienda.
+- Privilegios de Puerto: En sistemas operativos tipo Unix/Linux, los puertos por debajo del 1024 (como el puerto 80 para HTTP) requieren privilegios de superusuario (root) para ser utilizados. Ejecutar tu aplicación como root es una mala práctica de seguridad.
 
-- Conflictos con Servicios Existentes: El puerto 80 podría estar ocupado por otros servicios web en la misma máquina. Si intentamos usarlo directamente, podríamos enfrentarnos a conflictos y errores al iniciar nuestra aplicación.
+- Conflictos con Servicios Existentes: El puerto 80 podría estar ocupado por otros servicios web en la misma máquina, lo que causaría conflictos al iniciar tu aplicación.
 
-- Recomendaciones de Seguridad: Por razones de seguridad, se sugiere utilizar un puerto no privilegiado (por encima del 1024) para aplicaciones web. Esto ayuda a evitar posibles vulnerabilidades y ataques.
+- Recomendaciones de Seguridad: Se sugiere utilizar un puerto no privilegiado (mayor a 1024) para las aplicaciones y usar un servidor web dedicado como NGINX para gestionar el acceso público.
 
 ## ¿Qué es un Proxy Inverso?
 
 Un proxy inverso es un servidor que actúa como intermediario entre los clientes (navegadores, aplicaciones móviles, etc.) y los servidores de aplicaciones.
 
 NGINX se utiliza comúnmente como un proxy inverso debido a su eficiencia y flexibilidad.
+
 Ventajas de Usar un Proxy Inverso con NGINX:
 
-- Seguridad: El proxy inverso oculta los detalles de la infraestructura detrás de él, protegiendo los servidores de aplicaciones de ataques directos.
+- Seguridad: Oculta la infraestructura de tu backend, protegiendo los servidores de aplicaciones de ataques directos.
 
-- Balanceo de Carga: NGINX puede distribuir las solicitudes entrantes entre varios servidores de aplicaciones, mejorando la escalabilidad.
+- Balanceo de Carga: Puede distribuir el tráfico entre varias instancias de tu aplicación para mejorar la escalabilidad y disponibilidad.
 
-- Caché: Puede almacenar en caché respuestas para reducir la carga en los servidores de aplicaciones.
+- Caché: Almacena en caché contenido estático y dinámico para reducir la carga en los servidores de aplicación y acelerar las respuestas.
 
-- SSL/TLS: NGINX puede manejar la terminación SSL/TLS, liberando a los servidores de aplicaciones de esta tarea. Esto significa que NGINX se encarga de descifrar las solicitudes cifradas (HTTPS) enviadas por el cliente y luego reenvía las solicitudes sin cifrar al servidor de aplicaciones (que puede estar ejecutando Spring Boot).
+- Terminación SSL/TLS: NGINX puede manejar el cifrado y descifrado HTTPS, liberando a tu aplicación de esta tarea intensiva en CPU.
 
 ## Instalar NGINX en AWS Linux 2023
 
@@ -42,6 +43,7 @@ Es necesario que tu archivo de clave `.pem` tenga permisos de solo lectura; de l
 ```bash
 chmod 400 your_key.pem
 ```
+
 El comando `chmod` en sistemas operativos tipo Unix se utiliza para cambiar los permisos de un archivo o directorio. En este comando, 400 especifica que el propietario del archivo (your_key.pem) debe tener permisos de solo lectura, mientras que todos los demás usuarios no tienen ningún permiso.
 
 ### Paso 2: Actualizar el sistema.
@@ -192,7 +194,7 @@ Antes de realizar la prueba, asegúrate de que tu backend se esté ejecutando en
 Si el puerto 80 está permitido como entrada en la instancia EC2, puedes realizar una petición desde Postman o desde la línea de comandos local utilizando la dirección IP pública de tu instancia:
    
    ```bash
-   curl your_instance_public_ip/api/v1/users
+   curl http://your_instance_public_ip/api/v1/users
    ```
 
 Recuerda reemplazar your_instance_public_ip con la dirección IP pública de tu instancia EC2.
